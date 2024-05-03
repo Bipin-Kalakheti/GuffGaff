@@ -7,12 +7,12 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 20px;
+    gap: 10px;
     border-bottom: 1px solid #dddddd35;
 
     img {
-      width: 100px;
-      height: 100px;
+      width: 80px;
+      height: 80px;
       border-radius: 50%;
       object-fit: cover;
     }
@@ -22,7 +22,7 @@
     padding: 20px;
     display: flex;
     flex-direction: column;
-    gap: 30px;
+    gap: 15px;
 
     .option {
       .title {
@@ -43,7 +43,7 @@
       .photos {
         display: flex;
         flex-direction: column;
-        gap: 20px;
+        gap: 10px;
         margin-top: 20px;
 
         .photoItem {
@@ -80,7 +80,7 @@
       }
     }
     button {
-      padding: 10px 20px;
+      padding: 15px 20px;
       background-color: rgba(230, 74, 105, 0.553);
       color: white;
       border: none;
@@ -88,8 +88,12 @@
       cursor: pointer;
 
       &:hover {
-        background-color: rgba(220, 20, 60, 0.80);
+        background-color: rgba(220, 20, 60, 0.8);
+      }
 
+      &.logout {
+        padding: 10px;
+        background-color: #1a73e8;
       }
     }
   }
