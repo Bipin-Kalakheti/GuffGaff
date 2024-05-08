@@ -1,12 +1,10 @@
 import { doc, getDoc } from "firebase/firestore";
-import { jsx } from "react/jsx-runtime";
 import { create } from "zustand";
 import { db } from "./firebase";
 
-const useUserStore = create((set) => ({
+export const useUserStore = create((set) => ({
   currentUser: null,
   isLoading: true,
-
   fetchUserInfo: async (uid) => {
     if (!uid) return set({ currentUser: null, isLoading: false });
 
@@ -25,5 +23,3 @@ const useUserStore = create((set) => ({
     }
   },
 }));
-
-export default useUserStore;

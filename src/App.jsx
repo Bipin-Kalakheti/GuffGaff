@@ -6,14 +6,14 @@ import Notification from "./components/notification/Notification.jsx";
 import { useEffect } from "react";
 import { onAuthStateChanged } from "firebase/auth";
 import { auth } from "./lib/firebase.js";
-import useUserStore from "./lib/userStore.js";
+import { useUserStore } from "./lib/userStore.js";
 
 const App = () => {
   const { currentUser, isLoading, fetchUserInfo } = useUserStore();
 
   useEffect(() => {
     const unSub = onAuthStateChanged(auth, (user) => {
-      fetchUserInfo(user.uid);
+      fetchUserInfo(user?.uid);
     });
 
     return () => {
