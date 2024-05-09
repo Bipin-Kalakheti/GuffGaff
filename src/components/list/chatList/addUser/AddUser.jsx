@@ -42,7 +42,7 @@ const AddUser = () => {
   const handleAdd = async () => {
     const chatRef = collection(db, "chat");
     const userChatsRef = collection(db, "userchats");
-
+    
     try {
       const newChatRef = doc(chatRef);
 
@@ -67,8 +67,7 @@ const AddUser = () => {
           receiverId: user.id,
           updatedAt: Date.now(),
         }),
-      })
-
+      });
     } catch (err) {
       console.log(err);
     }
