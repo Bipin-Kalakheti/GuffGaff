@@ -12,6 +12,7 @@ import { db } from "../../lib/firebase";
 import { useChatStore } from "../../lib/chatStore";
 import { useUserStore } from "../../lib/userStore";
 import upload from "../../lib/upload";
+import { format } from "timeago.js";
 
 const Chat = () => {
   const [chat, setChat] = useState();
@@ -28,6 +29,7 @@ const Chat = () => {
 
   const endRef = useRef(null);
 
+  console.log("cht: " + chat);
   useEffect(() => {
     endRef.current.scrollIntoView({ behavior: "smooth" });
   }, []);
@@ -40,8 +42,6 @@ const Chat = () => {
       unSub();
     };
   }, [chatId]);
-
-  console.log(chat);
 
   const handleEmoji = (e) => {
     setText((prev) => prev + e.emoji);
@@ -101,14 +101,14 @@ const Chat = () => {
       });
     } catch (error) {
       console.log(error);
+    } finally {
+      setImg({
+        file: null,
+        url: "",
+      });
+
+      setText("");
     }
-
-    setImg({
-      file: null,
-      url: "",
-    });
-
-    setText("");
   };
 
   return (
@@ -117,7 +117,7 @@ const Chat = () => {
         <div className="user">
           <img src={user?.avatar || "./avatar.png"} alt="" />
           <div className="texts">
-            <span>{user.username}</span>
+            <span>{user?.username}</span>
             <p>Lorem ipsum dolor, sit amet consecteur</p>
           </div>
         </div>
@@ -128,7 +128,7 @@ const Chat = () => {
         </div>
       </div>
       <div className="center">
-        {chat?.messages.map((message) => (
+        {chat?.messages?.map((message) => (
           <div
             className={
               message.senderId === currentUser?.id ? "message own" : "message"
@@ -138,7 +138,7 @@ const Chat = () => {
             {message.img && <img src={message.img} alt="" />}
             <div className="texts">
               <p>{message.text}</p>
-              <span>1 min ago</span>
+              <span>{format(message.createdAt.toDate())}</span>
             </div>
           </div>
         ))}
