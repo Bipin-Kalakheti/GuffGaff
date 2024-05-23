@@ -6,6 +6,7 @@ import {
   doc,
   getDoc,
   onSnapshot,
+  setDoc,
   updateDoc,
 } from "firebase/firestore";
 import { db } from "../../lib/firebase";
@@ -66,8 +67,19 @@ const Chat = () => {
       if (img.file) {
         imgUrl = await upload(img.file);
       }
+      console.log("WE're here");
 
-      await updateDoc(doc(db, "chats", chatId), {
+      const chatDocRef = doc(db, "chats", chatId);
+      const chatDocSnapshot = await getDoc(chatDocRef);
+
+      if (!chatDocSnapshot.exists()) {
+        // Create the document before updating
+        await setDoc(chatDocRef, {
+          messages: [],
+        });
+      }
+
+      await updateDoc(chatDocRef, {
         messages: arrayUnion({
           senderId: currentUser.id,
           text,
