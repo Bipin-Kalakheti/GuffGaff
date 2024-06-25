@@ -26,7 +26,7 @@ function Detail() {
       <div className="user">
         <img src={user?.avatar || "./avatar.png"} alt="" />
         <h2>{user?.username}</h2>
-        <p>Lorem Ipsum dolor sit amet.</p>
+        <p>Active Now🟢</p>
       </div>
       <div className="info">
         <div className="option">

@@ -40,9 +40,15 @@ const AddUser = () => {
   };
 
   const handleAdd = async () => {
+    // Ensure user is not null before proceeding
+    if (!user) {
+      console.log("No user selected.");
+      return;
+    }
+
     const chatRef = collection(db, "chat");
     const userChatsRef = collection(db, "userchats");
-    
+
     try {
       const newChatRef = doc(chatRef);
 

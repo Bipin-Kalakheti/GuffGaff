@@ -2,10 +2,11 @@ import { useState } from "react";
 import "./login.css";
 import { toast } from "react-toastify";
 import {
+  
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
 } from "firebase/auth";
-import { auth, db } from "../../lib/firebase";
+import {auth, db } from "../../lib/firebase";
 import { doc, setDoc } from "firebase/firestore";
 import upload from "../../lib/upload";
 
@@ -50,6 +51,7 @@ const Login = () => {
     e.preventDefault();
     setLoading(true);
     const formData = new FormData(e.target);
+    console.log(e.target);
 
     const { username, email, password } = Object.fromEntries(formData);
 
