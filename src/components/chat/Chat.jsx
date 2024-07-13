@@ -123,6 +123,24 @@ const Chat = () => {
     }
   };
 
+  const [senderAvatar, setSenderAvatar] = useState("./avatar.png"); // Default avatar
+  useEffect(() => {
+    const fetchSenderAvatar = async () => {
+      for (const message of chat?.messages || []) {
+        if (message.senderId !== currentUser?.id) {
+          const userDocRef = doc(db, "users", message.senderId);
+          const userDocSnapshot = await getDoc(userDocRef);
+          if (userDocSnapshot.exists()) {
+            const userData = userDocSnapshot.data();
+            setSenderAvatar(userData.avatar || "./avatar.png");
+          }
+        }
+      }
+    };
+
+    fetchSenderAvatar();
+  }, [chat?.messages]);
+
   return (
     <div className="chat">
       <div className="top">
@@ -147,8 +165,14 @@ const Chat = () => {
             }
             key={message?.createdAt}
           >
-            {message.img && <img src={message.img} alt="" />}
+            {message.senderId !== currentUser?.id  && (
+              <img className="sender-img" src={senderAvatar} alt="" />
+            )}
             <div className="texts">
+              {message.img && (
+                <img className="chat-img" src={message.img} alt="" />
+              )}
+
               <p>{message.text}</p>
               <span>{format(message.createdAt.toDate())}</span>
             </div>
@@ -157,7 +181,7 @@ const Chat = () => {
         {img.url && (
           <div className="message own">
             <div className="texts">
-              <img src={img.url} alt="" />
+              <img className="send-img" src={img.url} alt="" />
             </div>
           </div>
         )}
